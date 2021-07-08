@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">My CameraX App</string>
     <string name="main_take_photo_text_button">Take Photo</string>
+    <string name="message_permissions_not_granted">Permissions not granted by the user.</string>
 </resources>
