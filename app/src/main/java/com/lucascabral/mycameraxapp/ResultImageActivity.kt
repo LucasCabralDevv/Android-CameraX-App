@@ -12,6 +12,7 @@ import com.lucascabral.mycameraxapp.databinding.ActivityResultImageBinding
 class ResultImageActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityResultImageBinding
+    private val TAG = "TestResultApi"
     private val register = registerForActivityResult(
         ActivityResultContracts.TakePicturePreview()
     ) { image: Bitmap? -> image?.let { binding.resultImageView.setImageBitmap(image) }}
