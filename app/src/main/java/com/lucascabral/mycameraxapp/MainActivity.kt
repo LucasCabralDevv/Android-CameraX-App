@@ -1,6 +1,7 @@
 package com.lucascabral.mycameraxapp
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -90,6 +91,7 @@ class MainActivity : AppCompatActivity() {
                     val msg = "Photo capture succeeded: $savedUri"
                     Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
                     Log.d(TAG, msg)
+                    startActivity(Intent(this@MainActivity, ResultImageActivity::class.java))
                 }
 
                 override fun onError(exception: ImageCaptureException) {
