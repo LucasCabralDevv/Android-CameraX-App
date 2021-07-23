@@ -17,10 +17,12 @@ class ResultImageActivity : AppCompatActivity() {
         binding = ActivityResultImageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        startActivityForResult(
-            Intent(MediaStore.ACTION_IMAGE_CAPTURE),
-            REQUEST_IMAGE_CAPTURE
-        )
+        binding.resultButton.setOnClickListener {
+            startActivityForResult(
+                Intent(MediaStore.ACTION_IMAGE_CAPTURE),
+                REQUEST_IMAGE_CAPTURE
+            )
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -28,13 +30,13 @@ class ResultImageActivity : AppCompatActivity() {
         if (requestCode == REQUEST_IMAGE_CAPTURE &&
             resultCode == RESULT_OK
         ) {
-            (data?.extras?.get("data") as? Bitmap?)?.let { photo ->
-                binding.resultImageView.setImageBitmap(photo)
+            (data?.extras?.get("data") as? Bitmap?)?.let { foto ->
+                binding.resultImageView.setImageBitmap(foto)
             }
         }
     }
 
     companion object {
-        const val REQUEST_IMAGE_CAPTURE = 2
+        const val REQUEST_IMAGE_CAPTURE = 1
     }
 }
