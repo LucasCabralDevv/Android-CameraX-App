@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import com.lucascabral.mycameraxapp.databinding.ActivityResultImageBinding
@@ -11,6 +12,9 @@ import com.lucascabral.mycameraxapp.databinding.ActivityResultImageBinding
 class ResultImageActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityResultImageBinding
+    private val register = registerForActivityResult(
+        ActivityResultContracts.TakePicturePreview()
+    ) { image: Bitmap? -> image?.let { binding.resultImageView.setImageBitmap(image) }}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,13 +22,15 @@ class ResultImageActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.resultButton.setOnClickListener {
-            startActivityForResult(
-                Intent(MediaStore.ACTION_IMAGE_CAPTURE),
-                REQUEST_IMAGE_CAPTURE
-            )
+            register.launch(null)
         }
     }
 
+    /** deprecated
+     * startActivityForResult(
+    Intent(MediaStore.ACTION_IMAGE_CAPTURE),
+    REQUEST_IMAGE_CAPTURE
+    )
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE_CAPTURE &&
@@ -38,5 +44,5 @@ class ResultImageActivity : AppCompatActivity() {
 
     companion object {
         const val REQUEST_IMAGE_CAPTURE = 1
-    }
+    } */
 }
