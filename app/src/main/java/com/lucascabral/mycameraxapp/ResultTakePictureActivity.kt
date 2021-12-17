@@ -22,6 +22,10 @@ class ResultTakePictureActivity : AppCompatActivity() {
         }
     }
 
+    private val selectImageFromGalleryResult = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let { binding.imagePreview.setImageURI(uri) }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityResultTakePictureBinding.inflate(layoutInflater)
@@ -34,7 +38,12 @@ class ResultTakePictureActivity : AppCompatActivity() {
         binding.takeImageButton.setOnClickListener {
             takeImage()
         }
+        binding.selectImageButton.setOnClickListener {
+            selectImageFromGallery()
+        }
     }
+
+    private fun selectImageFromGallery() = selectImageFromGalleryResult.launch("image/*")
 
     private fun takeImage() {
         lifecycleScope.launchWhenCreated {
